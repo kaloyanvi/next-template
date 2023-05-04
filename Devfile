@@ -1,0 +1,37 @@
+name: next-template
+version: 1
+
+up:
+  - node: 18.14.1
+  - run: corepack enable
+  - run: pnpm install
+
+down:
+  - run: rm -r node_modules
+
+commands:
+  server:
+    description: Start local server
+    tasks:
+      - run: pnpm exec next
+
+  build:
+    description: Build
+    tasks:
+      - run: pnpm build
+
+  pretty:
+    description: Make the code nice
+    tasks:
+      - run: pnpm exec prettier --write .
+
+  lint:
+    description: Lint and format
+    tasks:
+      - run: pnpm exec eslint . --fix
+      - run: pnpm exec prettier . --check
+
+  typecheck:
+    description: Type check
+    tasks:
+      - run: pnpm exec tsc -p tsconfig.json
